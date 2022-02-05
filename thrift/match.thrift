@@ -1,4 +1,4 @@
-namespace cpp match_server
+namespace cpp match_service
 
 struct User{
     1: i32 id,
