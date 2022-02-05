@@ -1,11 +1,12 @@
+#coding=utf-8
 # import sys
+
 # import glob
 # sys.path.append('match_client')
 # sys.path.insert(0, glob.glob('../../lib/py/build/lib*')[0])
 
 from match_client.match import Match
 from match_client.match.ttypes import User
-from tutorial.ttypes import InvalidOperation, Operation, Work
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -28,9 +29,6 @@ def main():
 
     # Connect!
     transport.open()
-    
-    # 这里是写具体的业务代码
-    
 
     # client.ping()
     # print('ping()')
