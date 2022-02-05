@@ -14,6 +14,10 @@
 ### 测试1 
 基本的py和cpp 文件之间的add user通信
 
+```
 g++ -c main.cpp match_server/*.cpp
+```
 
+```
 g++ *.o -o main -lthrift -pthread
+```
