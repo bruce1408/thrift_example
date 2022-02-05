@@ -40,7 +40,7 @@ class Pool
     public:
     void save_result(int a, int b)
     {
-        printf("match result %d, %d", a, b);
+        printf("match result %d, %d \n", a, b);
     }
 
     void match()
