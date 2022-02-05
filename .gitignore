@@ -1,4 +1,4 @@
 *.so
-*..pyc
 *.o
-*.__pyc
+__pycache__/
+/.idea/
