@@ -11,20 +11,8 @@
 #include<iostream>
 #include<thread>
 #include<mutex>
-#include<condition_variable> 
+#include<condition_variable>
 #include<queue>
-
-struct Task{
-    User user;
-    string type;
-};
-
-struct MessageQueue{
-    queue<Task> q;
-    muutex m;
-    condition_variable cv;
-}message_queue;
-
 
 
 using namespace ::apache::thrift;
@@ -34,6 +22,18 @@ using namespace ::apache::thrift::server;
 
 using namespace  ::match_server;
 using namespace std;
+
+struct Task{
+
+    User user;
+    string type;
+};
+
+struct MessageQueue{
+    queue<Task> q;
+    mutex m;
+    condition_variable cv;
+}message_queue;
 
 class Pool
 {
@@ -95,7 +95,6 @@ class MatchHandler : virtual public MatchIf {
             // 只能有一个线程执行结束，才会执行第二个线程，然后会把锁释放掉
             unique_lock<mutex> lck(message_queue.m);
             message_queue.q.push({user, "add"});
-            
             // 如果有新的任务，这里会进行唤醒，通知下面消费进行继续执行
             message_queue.cv.notify_all(); 
             return 0;
@@ -130,7 +129,6 @@ void consume_task()
         unique_lock<mutex> lck(message_queue.m); 
         // 每次都从队列里面进行消费，如果是空就跳过
         if (message_queue.q.empty()){
-            
             // 等待有任务进行唤醒
             message_queue.cv.wait(lck);
         }
@@ -144,7 +142,6 @@ void consume_task()
             else if( task.type=="remove") pool.remove(task.user); 
 
             pool.match();
-            
         }
     }
 }
