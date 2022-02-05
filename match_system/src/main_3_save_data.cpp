@@ -20,7 +20,7 @@ using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
 using namespace ::apache::thrift::server;
 
-using namespace ::match_service;
+using namespace ::match_server;
 using namespace ::save_service; 
 using namespace std;
 
