@@ -31,7 +31,7 @@ struct Task{
 
 struct MessageQueue{
     queue<Task> q;
-    muutex m;
+    mutex m;
     condition_variable cv;
 }message_queue;
 
