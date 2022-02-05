@@ -2,7 +2,7 @@
 // You should copy it to another filename to avoid overwriting it.
 
 #include "match_server/Match.h"
-#include "save_server/"
+#include "save_server/Save.h"
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/server/TSimpleServer.h>
 #include <thrift/transport/TServerSocket.h>
@@ -20,8 +20,8 @@ using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
 using namespace ::apache::thrift::server;
 
-using namespace  ::match_server;
-using namespace ::save_server;
+using namespace ::match_server;
+using namespace ::save_server; 
 using namespace std;
 
 struct Task{
@@ -42,6 +42,24 @@ class Pool
     void save_result(int a, int b)
     {
         printf("match result %d, %d \n", a, b);
+
+        // 这个是远程节点ip和端口
+        std::shared_ptr<TTransport> socket(new TSocket("123.57.47.211", 9090));
+        std::shared_ptr<TTransport> transport(new TBufferedTransport(socket));
+        std::shared_ptr<TProtocol> protocol(new TBinaryProtocol(transport));
+        SaveClient client(protocol);
+
+        try {
+            transport->open();
+            
+            // 用户名和token
+            client.save_data("acs", "16e560e6" , a, b);
+
+
+            transport->close();
+        } catch (TException& tx) {
+        cout << "ERROR: " << tx.what() << endl;
+        }
     }
 
     void match()
