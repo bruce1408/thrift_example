@@ -2,7 +2,7 @@
 // You should copy it to another filename to avoid overwriting it.
 
 #include "match_server/Match.h"
-#include "save_server/Save.h"
+#include "save_client/Save.h"
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/server/TSimpleServer.h>
 #include <thrift/transport/TServerSocket.h>
